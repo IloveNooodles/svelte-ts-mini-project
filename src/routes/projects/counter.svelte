@@ -32,10 +32,8 @@
 	$: {
 		if (counter > 0) {
 			style = 'green';
-			console.log('test');
 		} else if (counter < 0) {
 			style = 'red';
-			console.log('geming');
 		} else {
 			style = '#000';
 		}
