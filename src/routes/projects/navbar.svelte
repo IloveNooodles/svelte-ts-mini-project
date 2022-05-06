@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../../assets/fontawesome-free-6.1.1-web/css/all.min.css';
+	import '../../styles/global.css';
 	import logo from '../../assets/logo.svg';
 	export let clicked = false;
 </script>
@@ -21,16 +22,16 @@
 		<!-- end of header -->
 		<ul class="links" class:show-links={clicked}>
 			<li>
-				<a href="#">home</a>
+				<a href="/">home</a>
 			</li>
 			<li>
-				<a href="#">about</a>
+				<a href="/about">about</a>
 			</li>
 			<li>
-				<a href="#">projects</a>
+				<a href="/">projects</a>
 			</li>
 			<li>
-				<a href="#">contact</a>
+				<a href="https://www.linkedin.com/in/garebaldhie">contact</a>
 			</li>
 		</ul>
 		<!-- social media -->
