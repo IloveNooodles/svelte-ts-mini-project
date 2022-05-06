@@ -4,7 +4,7 @@
 	let showModal: boolean = false;
 </script>
 
-<main>
+<body>
 	<!-- hero  -->
 	<header class="hero">
 		<div class="banner">
@@ -21,7 +21,7 @@
 			</button>
 		</div>
 	</div>
-</main>
+</body>
 
 <style>
 	/*
