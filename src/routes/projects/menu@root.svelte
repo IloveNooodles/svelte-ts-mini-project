@@ -1,7 +1,147 @@
 <script lang="ts">
-	import '../../assets/fontawesome-free-6.1.1-web/css/all.min.css';
+	import '../../styles/fontawesome-free-6.1.1-web/css/all.min.css';
 	import '../../styles/global.css';
-	import menuItem from '../../assets/menu-item.jpeg';
+	import item1 from '../../assets/menu-img/item-1.jpeg';
+	import item2 from '../../assets/menu-img/item-2.jpeg';
+	import item3 from '../../assets/menu-img/item-3.jpeg';
+	import item4 from '../../assets/menu-img/item-4.jpeg';
+	import item5 from '../../assets/menu-img/item-5.jpeg';
+	import item6 from '../../assets/menu-img/item-6.jpeg';
+	import item7 from '../../assets/menu-img/item-7.jpeg';
+	import item8 from '../../assets/menu-img/item-8.jpeg';
+	import item9 from '../../assets/menu-img/item-9.jpeg';
+	import { onMount } from 'svelte';
+
+	type menuitem = {
+		id: number;
+		title: string;
+		category: string;
+		price: number;
+		img: string;
+		desc: string;
+	};
+
+	const menu: menuitem[] = [
+		{
+			id: 1,
+			title: 'buttermilk pancakes',
+			category: 'breakfast',
+			price: 15.99,
+			img: item4,
+			desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `
+		},
+		{
+			id: 2,
+			title: 'diner double',
+			category: 'lunch',
+			price: 13.99,
+			img: item2,
+			desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `
+		},
+		{
+			id: 3,
+			title: 'godzilla milkshake',
+			category: 'shakes',
+			price: 6.99,
+			img: item6,
+			desc: `ombucha chillwave fanny pack 3 wolf moon street art photo booth before they sold out organic viral.`
+		},
+		{
+			id: 4,
+			title: 'country delight',
+			category: 'breakfast',
+			price: 20.99,
+			img: item4,
+			desc: `Shabby chic keffiyeh neutra snackwave pork belly shoreditch. Prism austin mlkshk truffaut, `
+		},
+		{
+			id: 5,
+			title: 'egg attack',
+			category: 'lunch',
+			price: 22.99,
+			img: item5,
+			desc: `franzen vegan pabst bicycle rights kickstarter pinterest meditation farm-to-table 90's pop-up `
+		},
+		{
+			id: 6,
+			title: 'oreo dream',
+			category: 'shakes',
+			price: 18.99,
+			img: item6,
+			desc: `Portland chicharrones ethical edison bulb, palo santo craft beer chia heirloom iPhone everyday`
+		},
+		{
+			id: 7,
+			title: 'bacon overflow',
+			category: 'breakfast',
+			price: 8.99,
+			img: item7,
+			desc: `carry jianbing normcore freegan. Viral single-origin coffee live-edge, pork belly cloud bread iceland put a bird `
+		},
+		{
+			id: 8,
+			title: 'american classic',
+			category: 'lunch',
+			price: 12.99,
+			img: item8,
+			desc: `on it tumblr kickstarter thundercats migas everyday carry squid palo santo leggings. Food truck truffaut  `
+		},
+		{
+			id: 9,
+			title: 'quarantine buddy',
+			category: 'shakes',
+			price: 16.99,
+			img: item9,
+			desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`
+		}
+	];
+
+	const displayMenuItems = (menuItem: menuitem[]) => {
+		let displayMenu = menuItem.map((item: menuitem) => {
+			return `<article class="menu-item">
+        <img src=${item.img} class='photo' alt="this is a desc" />
+        <div class="item-info">
+          <header>
+            <h4>${item.title}</h4>
+            <h4 class="price">${item.price}</h4>
+          </header>
+          <p>
+            ${item.desc}
+          </p>
+        </div>
+      </article>`;
+		});
+		return displayMenu.join('');
+	};
+
+	onMount(() => {
+		const sectionCenter = document.querySelector<HTMLDivElement>(
+			'.section-center'
+		) as HTMLDivElement;
+		const filterBtns = document.querySelectorAll('.filter-btn');
+		let displayMenuArray = displayMenuItems(menu);
+
+		filterBtns.forEach((btn) => {
+			btn.addEventListener('click', (e) => {
+				const event = e.currentTarget as HTMLButtonElement;
+				const category = event.dataset.id;
+				const filteredMenu = menu.filter((item) => {
+					return item.category === category;
+				});
+				if (category === 'all') displayMenuArray = displayMenuItems(menu);
+				else displayMenuArray = displayMenuItems(filteredMenu);
+			});
+		});
+
+		sectionCenter.innerHTML = displayMenuArray;
+	});
+
+	export let selected = 'all';
+	export let categories = ['all', 'shakes', 'breakfast', 'lunch'];
+	const filterSelection = (e: Event) => {
+		const event = e.currentTarget as HTMLButtonElement;
+		selected = event.dataset.id as string;
+	};
 </script>
 
 <body>
@@ -11,21 +151,15 @@
 			<div class="underline" />
 		</div>
 		<!-- filter buttons  -->
-		<!-- menu items  -->
-		<div class="section-center">
-			<!-- single item  -->
-			<article class="menu-item">
-				<img src={menuItem} class="photo" alt="" />
-				<div class="item-info">
-          <header>
-            
-          </header>
-					<h4>buttermilk pancakes</h4>
-          <h4 class="price">$15</h4>
-				</div>
-			</article>
-			<!-- end of single item  -->
+		<div class="btn-container">
+			{#each categories as category}
+				<button class="filter-btn" type="button" data-id={category} on:click={filterSelection}
+					>{category}</button
+				>
+			{/each}
 		</div>
+		<!-- menu items  -->
+		<div class="section-center" />
 	</section>
 </body>
 
@@ -198,12 +332,6 @@ Global Styles
 		display: grid;
 		place-items: center;
 	}
-	/*
-=============== 
-Menu
-===============
-*/
-
 	.menu {
 		padding: 5rem 0;
 	}
@@ -248,49 +376,49 @@ Menu
 		gap: 3rem 2rem;
 		justify-items: center;
 	}
-	.menu-item {
+	:global(.menu-item) {
 		display: grid;
 		gap: 1rem 2rem;
 		max-width: 25rem;
 	}
-	.photo {
+	:global(.photo) {
 		object-fit: cover;
 		height: 200px;
 		border: 0.25rem solid var(--clr-gold);
 		border-radius: var(--radius);
 	}
-	.item-info header {
+	:global(.item-info header) {
 		display: flex;
 		justify-content: space-between;
 		border-bottom: 0.5px dotted var(--clr-grey-5);
 	}
-	.item-info h4 {
+	:global(.item-info h4) {
 		margin-bottom: 0.5rem;
 	}
-	.price {
+	:global(.price) {
 		color: var(--clr-gold);
 	}
-	.item-text {
+	:global(.item-text) {
 		margin-bottom: 0;
 		padding-top: 1rem;
 	}
 
 	@media screen and (min-width: 768px) {
-		.menu-item {
+		:global(.menu-item) {
 			grid-template-columns: 225px 1fr;
 			gap: 0 1.25rem;
 			max-width: 40rem;
 		}
-		.photo {
+		:global(.photo) {
 			height: 175px;
 		}
 	}
 	@media screen and (min-width: 1200px) {
-		.section-center {
+		:global(.section-center) {
 			width: 95vw;
 			grid-template-columns: 1fr 1fr;
 		}
-		.photo {
+		:global(.photo) {
 			height: 150px;
 		}
 	}

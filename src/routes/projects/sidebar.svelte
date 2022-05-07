@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../../assets/fontawesome-free-6.1.1-web/css/all.min.css';
+	import '../../styles/fontawesome-free-6.1.1-web/css/all.min.css';
 	import '../../styles/global.css';
 	import logo from '../../assets/logo.svg';
 	export let showSidebar: boolean = false;
