@@ -4,7 +4,7 @@
 
 <nav>
 	<div class="nav-center">
-		<h4>Gare's TS Project</h4>
+		<h4>Gare's Svelte-TS Project</h4>
 		<ul class="nav-links">
 			<li><a href="/">Home</a></li>
 			<li><a href="/about">About</a></li>
