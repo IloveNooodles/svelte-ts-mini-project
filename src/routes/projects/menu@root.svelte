@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../../styles/fontawesome-free-6.1.1-web/css/all.min.css';
 	import '../../styles/global.css';
 	import item1 from '../../assets/menu-img/item-1.jpeg';
 	import item2 from '../../assets/menu-img/item-2.jpeg';
@@ -143,6 +142,13 @@
 		selected = event.dataset.id as string;
 	};
 </script>
+
+<svelte:head>
+	<link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+	/>
+</svelte:head>
 
 <body>
 	<section class="menu">
